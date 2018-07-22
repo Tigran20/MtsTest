@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_8"
+    card_view:cardBackgroundColor="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout style="@style/linear_list_style">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Бирка:"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Порода:"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Масть:"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Возраст:"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/linear_list_style">
+
+            <TextView
+                android:id="@+id/cow_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="#4243"
+                android:textColor="@android:color/holo_green_dark"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/cow_breed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Гольштейн"
+                android:textColor="@android:color/holo_green_dark"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/cow_suit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Черная"
+                android:textColor="@android:color/holo_green_dark"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/cow_age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3ч 3м"
+                android:textColor="@android:color/holo_green_dark"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>
