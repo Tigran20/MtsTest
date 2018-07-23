@@ -6,10 +6,13 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.system.testmts.R;
@@ -19,6 +22,9 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 
 public class DetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -27,16 +33,14 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
     private Cow cow;
     private boolean isNewCow = true;
 
-    private EditText cowAge;
-
-    private FloatingActionButton deleteProduct;
     private FloatingActionButton graph_add;
     private FloatingActionButton saveData;
 
-    private int currentAge = 0;
-
     private Spinner spinnerBreed;
     private Spinner spinnerSuit;
+
+    private TextView age;
+    private TextView cowId;
 
     private GraphView graph;
 
@@ -52,19 +56,27 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
     private void init() {
         spinnerBreed = findViewById(R.id.spinner_breed);
         spinnerSuit = findViewById(R.id.spinner_suit);
-        cowAge = findViewById(R.id.cow_age);
         graph = findViewById(R.id.graph);
-        deleteProduct = findViewById(R.id.delete_product);
         graph_add = findViewById(R.id.graph_add);
         saveData = findViewById(R.id.save_data);
+        age = findViewById(R.id.cow_age);
+        cowId = findViewById(R.id.cow_id);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        currentDate();
         breedSpinner();
         suitSpinner();
 
-
-        deleteProduct.setOnClickListener(this);
         graph_add.setOnClickListener(this);
         saveData.setOnClickListener(this);
+    }
+
+    private void currentDate() {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat ageFormat = new SimpleDateFormat("dd.MM.yyyy");
+        String strDate = ageFormat.format(calendar.getTime());
+        age.setText(strDate);
     }
 
     private void graph() {
@@ -96,12 +108,8 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
             this.cow = (Cow) intent.getSerializableExtra(DATA);
             if (cow != null) {
                 isNewCow = false;
-                cowAge.setText(String.valueOf(currentAge));
-            } else {
-                deleteProduct.setVisibility(View.GONE);
+                cowId.setText(String.valueOf(cow.getId()));
             }
-        } else {
-            deleteProduct.setVisibility(View.GONE);
         }
     }
 
@@ -112,22 +120,6 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.delete_product:
-                if (cow != null) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(DetailsActivity.this);
-                    builder
-                            .setTitle(R.string.delete_product_alert)
-                            .setMessage(R.string.delete_product_alert_quest)
-                            .setCancelable(false)
-                            .setPositiveButton(R.string.alert_no_answer, (dialog, i) -> dialog.cancel())
-                            .setNegativeButton(R.string.alert_yes_answer, (dialog, id) -> {
-                                dialog.cancel();
-                                Data.deleteData(cow.getId());
-                                finish();
-                            });
-                    builder.create().show();
-                }
-                break;
             case R.id.save_data:
                 String breed = String.valueOf(spinnerBreed.getSelectedItem());
                 if (TextUtils.isEmpty(breed)) {
@@ -141,17 +133,19 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
                     break;
                 }
 
-                String stringAge = cowAge.getText().toString();
+
+                Calendar calendar = Calendar.getInstance();
+                SimpleDateFormat ageFormat = new SimpleDateFormat("dd.MM.yyyy");
+                String stringAge = ageFormat.format(calendar.getTime());
                 if (TextUtils.isEmpty(String.valueOf(stringAge))) {
                     getToast(getString(R.string.enter_age));
                     break;
                 }
-                int age = Integer.parseInt(stringAge);
 
                 if (isNewCow) {
-                    Data.insertData(breed, suit, age);
+                    Data.insertData(breed, suit, stringAge);
                 } else {
-                    Data.updateData(cow.getId(), breed, suit, age);
+                    Data.updateData(cow.getId(), breed, suit, stringAge);
                 }
                 finish();
                 break;
@@ -161,5 +155,34 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.delete_cow_info:
+                if (cow != null) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(DetailsActivity.this);
+                    builder
+                            .setTitle(R.string.delete_alert)
+                            .setMessage(R.string.delete_alert_quest)
+                            .setCancelable(false)
+                            .setPositiveButton(R.string.alert_no_answer, (dialog, i) -> dialog.cancel())
+                            .setNegativeButton(R.string.alert_yes_answer, (dialog, id) -> {
+                                dialog.cancel();
+                                Data.deleteData(cow.getId());
+                                finish();
+                            });
+                    builder.create().show();
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }

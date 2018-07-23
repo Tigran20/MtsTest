@@ -66,7 +66,7 @@ public class Data {
         return list;
     }
 
-    public static void insertData(String cowBreed, String cowSuit, int cowAge) {
+    public static void insertData(String cowBreed, String cowSuit, String cowAge) {
         SQLiteDatabase database = dbHelper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(CowContract.CowEntry.COLUMN_COW_BREED, cowBreed);
@@ -80,7 +80,7 @@ public class Data {
         database.delete(CowContract.CowEntry.TABLE_NAME, CowContract.CowEntry._ID + " = " + id, null);
     }
 
-    public static void updateData(long id, String cowBreed, String cowSuit, int cowAge) {
+    public static void updateData(long id, String cowBreed, String cowSuit, String cowAge) {
         SQLiteDatabase database = dbHelper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(CowContract.CowEntry.COLUMN_COW_BREED, cowBreed);
