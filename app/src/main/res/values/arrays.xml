@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="planets_array">
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
+    <string-array name="cow_breed_array">
+        <item>Голштинская</item>
+        <item>Черно-пестрая</item>
+        <item>Джерсейская</item>
+        <item>Симментальская</item>
+        <item>Айширская</item>
+        <item>Красная степная</item>
+        <item>Герефордская</item>
+        <item>Ярославская</item>
+        <item>Холмогорская</item>
+        <item>Голландская</item>
     </string-array>
 
 
-    <string-array name="planets_array2">
-        <item>Jupiter</item>
-        <item>Saturn</item>
+    <string-array name="cow_suit_array">
+        <item>Красная</item>
+        <item>Черная</item>
+        <item>Белая</item>
+        <item>Красно-белая</item>
+        <item>Бурая</item>
+        <item>Серая</item>
+        <item>Светло-рыжая</item>
+        <item>Светло-красная</item>
+        <item>Леопардовая</item>
     </string-array>
 </resources>

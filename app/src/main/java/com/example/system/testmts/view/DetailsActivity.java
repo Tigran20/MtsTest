@@ -91,13 +91,13 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void breedSpinner() {
-        ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(this, R.array.planets_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(this, R.array.cow_breed_array, android.R.layout.simple_spinner_item);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerBreed.setAdapter(arrayAdapter);
     }
 
     private void suitSpinner() {
-        ArrayAdapter<CharSequence> arrayAdapter2 = ArrayAdapter.createFromResource(this, R.array.planets_array2, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> arrayAdapter2 = ArrayAdapter.createFromResource(this, R.array.cow_suit_array, android.R.layout.simple_spinner_item);
         arrayAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerSuit.setAdapter(arrayAdapter2);
     }
@@ -109,6 +109,8 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
             if (cow != null) {
                 isNewCow = false;
                 cowId.setText(String.valueOf(cow.getId()));
+                spinnerBreed.setSelection(((ArrayAdapter<String>) spinnerBreed.getAdapter()).getPosition(String.valueOf(cow.getBreed())));
+                spinnerSuit.setSelection(((ArrayAdapter<String>) spinnerSuit.getAdapter()).getPosition(String.valueOf(cow.getSuit())));
             }
         }
     }

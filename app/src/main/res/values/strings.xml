@@ -15,6 +15,6 @@
     <string name="breed">Порода</string>
     <string name="suit">Масть</string>
     <string name="age">Возраст</string>
-    <string name="id">#Бирки</string>
+    <string name="id">Бирки</string>
     <string name="current_date">Текущая дата</string>
 </resources>
